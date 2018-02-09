@@ -17,15 +17,15 @@ public class MyTree {
     }
 
     // 4 serch
-    private Node getLastNode(String str) {
+    public Node getLastNode(String str) {
         Node e = root;
         for (int i = 0; i < str.length(); i++) {
             Character iSymbol = str.charAt(i);
             e = e.getChild(iSymbol);
-            System.out.println(e.getChildren());
         }
         return e;
     }
+
     //get all tree ends
     //remove option
 

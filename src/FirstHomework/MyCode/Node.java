@@ -15,12 +15,13 @@ public class Node {
         this.parent = setParent;
     }
 
-
     public void addChild(Node child) {
-    if (children.get(child) == null) children.put(child,1);
+    if (!this.getChildren().keySet().contains(child.getName())) {
+        children.put(child,1);
+    }
     else {
-        Integer x = children.get(child) + 1;
-        children.put(child,x);
+        Integer x = children.get(this.getChildren().get(child.name)) + 1;
+        children.put(this.getChildren().get(child.name),x);
     }
     }
 
@@ -36,12 +37,14 @@ public class Node {
         return name;
     }
 
-    public HashSet<Node> getChildren(){
-        HashSet<Node> allChars = new HashSet<Node>();
+
+    public HashMap<Character, Node> getChildren(){
+        HashMap<Character,Node> allChars = new HashMap<Character,Node>();
         for (Node e : children.keySet()) {
-            allChars.add(e);
+            allChars.put(e.getName(),e);
         }
         return allChars;
     }
+
 
 }
