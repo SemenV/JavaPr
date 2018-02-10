@@ -16,27 +16,39 @@ public class Node {
     }
 
     public void addChild(Node child) {
-    if (!this.getChildren().keySet().contains(child.getName())) {
+    if (!getChildren().keySet().contains(child.getName())) {
         children.put(child,1);
     }
     else {
-        Integer x = children.get(this.getChildren().get(child.name)) + 1;
-        children.put(this.getChildren().get(child.name),x);
+        Integer x = children.get(getChildren().get(child.name)) + 1;
+        children.put(getChildren().get(child.name),x);
     }
     }
 
+    public void removeChild(Character child) {
+        Integer x = children.get(getChildren().get(child)) - 1;
+        if (x == 0) children.remove(getChildren().get(child));
+        else children.put(getChildren().get(child),x);
+    }
+
     public Node getChild(Character e){
-        for (Node i: children.keySet()) {
-            if (i.name == e) return i;
+        return getChildren().get(e);
+    }
+
+    public int getChildCount(Character e) {
+        for (Node k : children.keySet()) {
+            if (k.name == e) return children.get(k);
         }
-        //else
-        return null;
+        return 0;
     }
 
     public Character getName() {
         return name;
     }
 
+    public Node getParent() {
+        return parent;
+    }
 
     public HashMap<Character, Node> getChildren(){
         HashMap<Character,Node> allChars = new HashMap<Character,Node>();
@@ -44,6 +56,14 @@ public class Node {
             allChars.put(e.getName(),e);
         }
         return allChars;
+    }
+
+    public int getCountEnds() {
+        int count = 0;
+        for (Node e: children.keySet()) {
+            count += children.get(e);
+        }
+        return count;
     }
 
 
