@@ -1,4 +1,4 @@
-package FirstHomework.MyCode;
+package FirstHomework.Tree;
 
 import java.util.*;
 

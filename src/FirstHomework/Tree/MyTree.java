@@ -1,10 +1,15 @@
-package FirstHomework.MyCode;
+package FirstHomework.Tree;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class MyTree {
     private Node root = new Node(); //Node with empty data
+
+    public void setAllString(String... e){
+        for (String element: e) {
+            setString(element);
+        }
+    }
 
     public void setString(String str) {
         if (isPresent(str)) throw new IllegalArgumentException("Please stop");
@@ -38,9 +43,9 @@ public class MyTree {
         }
     }
 
-    public HashSet<String> getString(String line) {
+    public ArrayList<String> getString(String line) {
         ArrayList<Node> nodeList = this.getEndsNodes(line);
-        HashSet<String> end = new HashSet<String>();
+        ArrayList<String> end = new ArrayList<String>();
         for (int i = 0; i < nodeList.size(); i++) {
             Node element = nodeList.get(i);
             StringBuilder str = new StringBuilder();
@@ -54,7 +59,7 @@ public class MyTree {
     }
 
 
-    public Node getLastNode(String str) {
+    private Node getLastNode(String str) {
         Node e = root;
         for (int i = 0; i < str.length(); i++) {
             Character iSymbol = str.charAt(i);
@@ -83,14 +88,5 @@ public class MyTree {
         }
         return ends;
     }
-
-    public ArrayList<Character> k(ArrayList<Node> p){
-        ArrayList<Character> n = new ArrayList<>();
-        for (Node i: p){
-            n.add(i.getName());
-        }
-        return n;
-    }
-
 
 }
