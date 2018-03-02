@@ -1,6 +1,7 @@
-package FirstHomework.Tree;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyTree {
     private Node root = new Node(); //Node with empty data
@@ -43,9 +44,9 @@ public class MyTree {
         }
     }
 
-    public ArrayList<String> getString(String line) {
+    public Set<String> getString(String line) {
         ArrayList<Node> nodeList = this.getEndsNodes(line);
-        ArrayList<String> end = new ArrayList<String>();
+        Set<String> end = new HashSet<>();
         for (int i = 0; i < nodeList.size(); i++) {
             Node element = nodeList.get(i);
             StringBuilder str = new StringBuilder();

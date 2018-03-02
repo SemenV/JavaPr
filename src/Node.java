@@ -1,4 +1,4 @@
-package FirstHomework.Tree;
+
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public class Node {
     }
 
     public void addChild(Node child) {
-    if (!getChildren().keySet().contains(child.getName())) {
+    if (!getChildren().containsKey(child.getName())) {
         children.put(child,1);
     }
     else {
