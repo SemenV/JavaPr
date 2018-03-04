@@ -12,11 +12,11 @@ public class TreeTest {
     @Test
     public void TestTreeGetAllString() {
         MyTree d = new MyTree();
-        d.setAllString("q", "qwer", "qweg","qwegg", "qw", "qwaaccc");
-        d.removeString("qwaaccc");
-
-        Set<String> end = new HashSet<>(Arrays.asList("qwer", "qweg","qwegg", "qw"));
-        Assert.assertEquals(end, d.getString("qw"));
+        d.setAllString("asdf","asff","aaaa","askdr","assssssss");
+        d.removeString("assssssss");
+        d.removeString("asff");
+        Set<String> end = new HashSet<>(Arrays.asList("asdf", "askdr"));
+        Assert.assertEquals(end, d.getString("as"));
     }
 
     @Test

@@ -13,35 +13,53 @@ public class MyTree {
     }
 
     public void setString(String str) {
-        if (isPresent(str)) throw new IllegalArgumentException("Please stop");
         Node e = root;
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length() - 1; i++) {
             Character iSymbol = str.charAt(i);
-            Node x = new Node(iSymbol,e);
+            Node x = new Node(iSymbol,e,false);
             e.addChild(x);
             e = e.getChild(iSymbol);
         }
+        e.addChild(new Node(str.charAt(str.length() - 1),e,true));
     }
 
-    public boolean isPresent(String str) {
-        try {
-            Node e = getLastNode(str);
-            e.getParent();
-        } catch (Exception e) {
-            return false;
+    public Node getLastNode(String str) {
+        Node e = root;
+        for (int i = 0; i < str.length(); i++) {
+            Character iSymbol = str.charAt(i);
+            e = e.getChild(iSymbol);
         }
-        Node last = getLastNode(str);
-        return last.getParent().getChildCount(str.charAt(str.length() - 1)) - last.getCountEnds() != 0;
+        return e;
     }
 
     public void removeString(String str) {
-        if (!isPresent(str)) throw new IllegalArgumentException("Please stop");
         Node e = getLastNode(str);
         while (e.getParent() != null) {
             Character symbol = e.getName();
+            boolean x = e.removeChild(symbol);
             e = e.getParent();
-            e.removeChild(symbol);
+            if (x) e.deleteChild(symbol);
         }
+        e.removeChild(str.charAt(str.length() - 1));
+    }
+
+    public ArrayList<Node> getEndsNodes(String str) {
+        Node e = getLastNode(str);
+        ArrayList<Node> ends = new ArrayList<Node>();
+
+        ArrayList<Node> unused = new ArrayList<Node>();
+        unused.add(e);
+        while (!unused.isEmpty()) {
+            for (int i = 0; i < unused.size(); i++) {
+                Node k = unused.get(i);
+                if (k.isEnd()) {
+                    ends.add(k);
+                }
+                unused.addAll(k.getNodeChildren());
+                unused.remove(k);
+            }
+        }
+        return ends;
     }
 
     public Set<String> getString(String line) {
@@ -59,35 +77,13 @@ public class MyTree {
         return end;
     }
 
-
-    private Node getLastNode(String str) {
-        Node e = root;
-        for (int i = 0; i < str.length(); i++) {
-            Character iSymbol = str.charAt(i);
-            e = e.getChild(iSymbol);
+    public boolean isPresent(String str) {
+        try {
+            Node e = getLastNode(str);
+            e.getParent();
+        } catch (Exception e) {
+            return false;
         }
-        return e;
+        return getLastNode(str).isEnd();
     }
-
-    private ArrayList<Node> getEndsNodes(String str) {
-        Node e = getLastNode(str);
-        ArrayList<Node> ends = new ArrayList<Node>();
-        ArrayList<Node> unused = new ArrayList<Node>();
-        unused.add(e);
-        Integer count = e.getCountEnds();
-        if (isPresent(str)) count++;
-        while (ends.size() != count) {
-            for (int i = 0; i < unused.size(); i++) {
-                Node k = unused.get(i);
-                Character iSymbol = k.getName();
-                if (k.getParent().getChildCount(iSymbol) - k.getCountEnds() != 0) {
-                    ends.add(k);
-                }
-                unused.addAll(k.getChildren().values());
-                unused.remove(k);
-            }
-        }
-        return ends;
-    }
-
 }
